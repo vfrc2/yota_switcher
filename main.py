@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import sys
 import web
 import yota_dev
@@ -6,7 +8,7 @@ import argparse
 arg = None
 
 def main(args):
-	#print('Yota switcher')
+
 	#if not(args and (len(args) > 2)):
 	#	print 'Using yota [options] <login> [password]'
 	#	print '\nOptions:'
