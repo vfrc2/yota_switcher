@@ -9,19 +9,6 @@ arg = None
 
 def main(args):
 
-	#if not(args and (len(args) > 2)):
-	#	print 'Using yota [options] <login> [password]'
-	#	print '\nOptions:'
-	#	print '    -l list all yota devices (not in -q)'
-	#	print '    -i show info (default) (not in -q)'
-	#	print '    -t show info and tariffs (not in -q)\n'
-	#	print '    -m select device by mac'
-	#	print '    -n select device by name'
-	#	print '    --alldev select all device\n'
-	#	print '    -r set tariff (not in -q)'
-	#	print '    -s set speed (replace -s) (not in -q)\n'
-	#	print '    -a ask password (if no password given)'
-	#	print '    -q quiet mode do actions by options and exit'
 	#	print '\nExample:'
 	#	print '   yota -lq <user> <pass> - show all devs on account'
 	#	print '   yota -m <mac> -tq - show dev by <mac> and its tariffs'
@@ -47,7 +34,12 @@ def main(args):
 	  print 'No yota device for account!'
 	  exit()
 	
-	if arg.set_speed or arg.set_tariff:
+	if arg.set_speed or arg.set_tariff or arg.set_cost:
+          if not arg.all and len(devs)>1:
+
+            print 'Can\'t set teriff for more then one dev (use --all to override)'
+            exit()
+
 	  arg.list = False
 	  arg.tariff = False
 	  
@@ -96,6 +88,8 @@ def ParseArgs():
     help='select device by mac')
   parser.add_argument('-n', '--device-name',
     help='select device by name')
+  parser.add_argument('--all', help='select all devices', action='store_true',
+	default = False)
   
   parser.add_argument('-s', '--set_speed', help='select tariff by speed')
   parser.add_argument('-r', '--set_tariff', help='select tariff by offer code')
